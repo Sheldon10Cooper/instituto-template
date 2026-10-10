@@ -1,22 +1,35 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-
-public class Intake extends SubsystemBase {
+public class Intake {
     private DcMotorEx intake;
-    private Telemetry telemetry;
-    public Intake(HardwareMap hMap, Telemetry telemetry){
-        this.telemetry = telemetry;
-        intake = hMap.get(DcMotorEx.class,"intake");
+    private CRServo roller1;
+    private CRServo roller2;
+
+    public Intake(HardwareMap hMap){
+        intake = hMap.get(DcMotorEx.class, "intake");
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        roller1 = hMap.get(CRServo.class,"roller1");
+        roller1.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        roller2 = hMap.get(CRServo.class,"roller2");
+        roller2.setDirection(DcMotorSimple.Direction.FORWARD);
     }
-    public void setPower(double power){
-        intake.setPower(power);
+
+    public void in(){
+        intake.setPower(1);
+        roller1.setPower(1);
+        roller2.setPower(1);
     }
-    public double getPower(){
-        return intake.getPower();
+    public void stop(){
+        intake.setPower(0);
+        roller1.setPower(0);
+        roller2.setPower(0);
     }
+
 }

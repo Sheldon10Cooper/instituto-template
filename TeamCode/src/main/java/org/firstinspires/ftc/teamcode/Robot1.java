@@ -8,11 +8,8 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Commands.ArmCommand;
-import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 
 public class Robot1 extends Robot {
-    public Shooter shooter;
     public final HardwareMap hMap;
     public final Telemetry telemetry;
     public static GamepadEx DriverGamepad;
@@ -29,17 +26,15 @@ public class Robot1 extends Robot {
 
     }
     private void initSubsystems(){
-        shooter = new Shooter(hMap);
     }
     private void configureButtons(){
         new Trigger(()->OperatorGamepad.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER)>0.5)
-                .whenActive(new InstantCommand(()-> shooter.shoot()))
-                .whenInactive(new InstantCommand(()-> shooter.stop()));
+                .whenActive(new InstantCommand(()-> ))
+                .whenInactive(new InstantCommand(()-> ));
 
     }
     @Override
     public void run(){
-        telemetry.addData("Shooter Power", shooter.getPower());
         telemetry.update();
         super.run();
 
