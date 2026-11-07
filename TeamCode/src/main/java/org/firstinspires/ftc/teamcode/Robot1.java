@@ -13,12 +13,15 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.subsystems.Indexer;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.subsystems.arcade;
 
 public class Robot1 extends Robot {
     public final HardwareMap hMap;
     public final Telemetry telemetry;
     public static GamepadEx DriverGamepad;
     public static GamepadEx OperatorGamepad;
+
+    public arcade arcade;
     public Indexer indexer;
     public Intake intake;
     public Shooter shooter;
@@ -46,7 +49,7 @@ public class Robot1 extends Robot {
         indexer = new Indexer(hMap);
         intake = new Intake(hMap);
         shooter = new Shooter(hMap);
-
+        arcade = new arcade(hMap);
 
     }
     private void configureButtons(){
