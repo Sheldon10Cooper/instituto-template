@@ -25,10 +25,7 @@ public class arcade {
 
     }
 
-    public void drive(){
-        double drive = -gamepad.left_stick_y;
-        double turn = gamepad.left_stick_x;
-
+    public void drive(double drive, double turn){
         double leftPower = drive + turn;
         double rightPower = drive - turn;
 
@@ -36,9 +33,10 @@ public class arcade {
         if (max > 1){
             leftPower = leftPower / max;
             rightPower = rightPower / max;
-
-            leftMotor.setPower(leftPower);
-            rightMotor.setPower(rightPower);
         }
+
+        leftMotor.setPower(leftPower);
+        rightMotor.setPower(rightPower);
     }
+
 }

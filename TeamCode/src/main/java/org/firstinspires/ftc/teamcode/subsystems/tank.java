@@ -21,9 +21,9 @@ public class tank {
 
     }
 
-    public void drive(){
-        double leftPower = -gamepad.left_stick_y;
-        double rightPower = gamepad.right_stick_x;
+    public void drive(double drive, double turn){
+        double leftPower = drive;
+        double rightPower = turn;
 
         leftMotor.setPower((leftPower)+(rightPower));
         rightMotor.setPower((leftPower)-(rightPower));

@@ -5,8 +5,11 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.ManualDrive;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.seattlesolvers.solverslib.command.InstantCommand;
 import com.seattlesolvers.solverslib.command.Robot;
+import com.seattlesolvers.solverslib.command.button.GamepadButton;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
+import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
@@ -45,7 +48,6 @@ public class Robot1 extends Robot {
     private void initSubsystems(){
         follower = Constants.create(hMap);
 
-
         indexer = new Indexer(hMap);
         intake = new Intake(hMap);
         shooter = new Shooter(hMap);
@@ -53,22 +55,32 @@ public class Robot1 extends Robot {
 
     }
     private void configureButtons(){
-
-
+        new GamepadButton(OperatorGamepad, GamepadKeys.Button.LEFT_BUMPER)
+                .whenPressed(new InstantCommand(indexer::index))
+                .whenReleased(new InstantCommand(indexer::stop));
     }
     @Override
     public void run(){
-        DrivePowers powers = ManualDrive.fieldCentric(
-                g1.left_stick_y,
-                g1.left_stick_x,
-                -g1.right_stick_x,
-                follower.pose().heading()
-        );
-        follower.manual(powers);
-
-        telemetry.update();
-        follower.update();
         super.run();
+        arcade.drive(-g1.left_stick_y, g1.left_stick_x);
+
+        if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.3) {
+            intake.in();
+        } else {
+            intake.stop();
+        }
+
+        //TargetVelocity cambia con el getVelocity
+        if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.3) {
+            new InstantCommand(() -> shooter.setTargetVelocity(1500));
+        } else {
+            shooter.stop();
+        }
+
+        telemetry.addData("Shooter velocity", shooter.getVelocity());
+        telemetry.addData("Shooter target", shooter.getTargetVelocity());
+        telemetry.update();
+
 
     }
 }
