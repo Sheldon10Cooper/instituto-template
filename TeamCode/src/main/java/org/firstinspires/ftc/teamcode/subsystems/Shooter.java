@@ -43,7 +43,7 @@ public class Shooter {
         double error = targetVel - shooter.getVelocity();
         double voltageComp = 12.0 / Math.max(battery.getVoltage(), 1.0);
 
-        double power = (P * error) + (F * targetVel) + (S * Math.signum(targetVel));
+        double power = (P * error) + (F * targetVel) + (S * targetVel);
         shooter.setPower(power * voltageComp);
     }
 
