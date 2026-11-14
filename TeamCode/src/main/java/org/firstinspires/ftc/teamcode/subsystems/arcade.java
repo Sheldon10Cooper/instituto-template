@@ -18,10 +18,10 @@ public class arcade {
         leftMotor = hMap.get(DcMotor.class, "leftMotor");
         rightMotor = hMap.get(DcMotor.class, "rightMotor");
 
-        //leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        //rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
 
     }
 

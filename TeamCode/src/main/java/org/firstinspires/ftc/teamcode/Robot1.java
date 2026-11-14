@@ -12,7 +12,6 @@ import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.subsystems.Indexer;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
@@ -46,7 +45,6 @@ public class Robot1 extends Robot {
 
     }
     private void initSubsystems(){
-        follower = Constants.create(hMap);
 
         indexer = new Indexer(hMap);
         intake = new Intake(hMap);
