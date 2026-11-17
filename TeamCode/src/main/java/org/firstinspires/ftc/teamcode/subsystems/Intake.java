@@ -18,7 +18,7 @@ public class Intake {
         roller1.setDirection(DcMotorSimple.Direction.FORWARD);
 
         roller2 = hMap.get(CRServo.class,"roller2");
-        roller2.setDirection(DcMotorSimple.Direction.FORWARD);
+        roller2.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void in(){

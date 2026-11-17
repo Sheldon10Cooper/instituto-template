@@ -38,5 +38,4 @@ public class arcade {
         leftMotor.setPower(leftPower);
         rightMotor.setPower(rightPower);
     }
-
 }

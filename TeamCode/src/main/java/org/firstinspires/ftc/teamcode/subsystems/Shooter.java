@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
@@ -13,7 +11,7 @@ public class Shooter {
 
     //PFS needs to be tuned
     public static double P = 0;
-    public static double F = 0.00035714285;
+    public static double F = 0;
     public static double S = 0;
     private final VoltageSensor battery;
     private double targetVel = 0;
@@ -21,14 +19,23 @@ public class Shooter {
 
     public Shooter(HardwareMap hMap){
         shooter = hMap.get(DcMotorEx.class,"shooter");
-        shooter.setDirection(DcMotorSimple.Direction.FORWARD);
-        shooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        shooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
+        shooter.setDirection(DcMotorEx.Direction.FORWARD);
 
         battery = hMap.voltageSensor.iterator().next();
     }
 
     public void setTargetVelocity(double vel){
         targetVel = vel;
+    }
+
+    public double getVelocity(){
+        return shooter.getVelocity();
+    }
+
+    public double getTargetVelocity(){
+        return targetVel;
     }
 
     public void stop(){
@@ -47,11 +54,4 @@ public class Shooter {
         shooter.setPower(power * voltageComp);
     }
 
-    public double getVelocity(){
-        return shooter.getVelocity();
-    }
-
-    public double getTargetVelocity(){
-        return targetVel;
-    }
 }

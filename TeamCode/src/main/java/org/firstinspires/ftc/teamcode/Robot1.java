@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.pedropathing.drivetrain.DrivePowers;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.ManualDrive;
@@ -33,7 +35,7 @@ public class Robot1 extends Robot {
 
     public Robot1(HardwareMap hMap, Telemetry telemetry, GamepadEx driverGamepad, GamepadEx operatorGamepad, Gamepad g1, Gamepad g2) {
         this.hMap = hMap;
-        this.telemetry = telemetry;
+        this.telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         this.g1 = g1;
         this.g2 = g2;
 
@@ -62,23 +64,18 @@ public class Robot1 extends Robot {
         super.run();
         arcade.drive(-g1.left_stick_y, g1.left_stick_x);
 
-        if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.3) {
+        if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1) {
             intake.in();
         } else {
             intake.stop();
         }
 
         //TargetVelocity cambia con el getVelocity
-        if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.3) {
+        if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1) {
             new InstantCommand(() -> shooter.setTargetVelocity(1500));
         } else {
             shooter.stop();
         }
-
-        telemetry.addData("Shooter velocity", shooter.getVelocity());
-        telemetry.addData("Shooter target", shooter.getTargetVelocity());
-        telemetry.update();
-
 
     }
 }
