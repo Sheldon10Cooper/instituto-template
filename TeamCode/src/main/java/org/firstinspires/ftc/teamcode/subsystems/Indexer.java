@@ -8,7 +8,7 @@ public class Indexer {
     private CRServo indexer;
     public Indexer(HardwareMap hMap){
         indexer = hMap.get(CRServo.class,"indexer");
-        indexer.setDirection(DcMotorSimple.Direction.FORWARD);
+        indexer.setDirection(CRServo.Direction.REVERSE);
     }
     public void index(){
         indexer.setPower(1);

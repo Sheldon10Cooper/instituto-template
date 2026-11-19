@@ -11,13 +11,12 @@ public class testshootermotor extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         DcMotorEx shooter = hardwareMap.get(DcMotorEx.class, "shooter");
-        shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        double velocity = shooter.getVelocity();
-
-
+        shooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         waitForStart();
 
         while(opModeIsActive()){
+            double velocity = shooter.getVelocity();
+
             if (gamepad1.a){
                 shooter.setPower(1);
             } else {

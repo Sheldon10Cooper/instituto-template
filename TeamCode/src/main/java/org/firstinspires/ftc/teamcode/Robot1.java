@@ -35,7 +35,7 @@ public class Robot1 extends Robot {
 
     public Robot1(HardwareMap hMap, Telemetry telemetry, GamepadEx driverGamepad, GamepadEx operatorGamepad, Gamepad g1, Gamepad g2) {
         this.hMap = hMap;
-        this.telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+        this.telemetry = telemetry;
         this.g1 = g1;
         this.g2 = g2;
 
@@ -61,8 +61,8 @@ public class Robot1 extends Robot {
     }
     @Override
     public void run(){
-        super.run();
         arcade.drive(-g1.left_stick_y, g1.left_stick_x);
+
 
         if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1) {
             intake.in();
@@ -70,12 +70,16 @@ public class Robot1 extends Robot {
             intake.stop();
         }
 
-        //TargetVelocity cambia con el getVelocity
         if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1) {
-            new InstantCommand(() -> shooter.setTargetVelocity(1500));
+            shooter.setTargetVelocity(2100);
         } else {
             shooter.stop();
         }
+        shooter.update();
+
+        telemetry.addData("Shooter velocity", shooter.getVelocity());
+        telemetry.addData("Shooter target", shooter.getTargetVelocity());
+        telemetry.update();
 
     }
 }
