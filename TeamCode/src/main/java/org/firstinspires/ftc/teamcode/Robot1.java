@@ -55,25 +55,33 @@ public class Robot1 extends Robot {
 
     }
     private void configureButtons(){
+       // new GamepadButton(OperatorGamepad, GamepadKeys.Button.LEFT_BUMPER)
+       //         .whenPressed(new InstantCommand(indexer::index))
+       //         .whenReleased(new InstantCommand(indexer::stop));
+
         new GamepadButton(OperatorGamepad, GamepadKeys.Button.LEFT_BUMPER)
-                .whenPressed(new InstantCommand(indexer::index))
-                .whenReleased(new InstantCommand(indexer::stop));
+                .toggleWhenPressed(
+                        new InstantCommand(intake::in),
+                        new InstantCommand(intake::stop)
+                );
     }
     @Override
     public void run(){
         arcade.drive(-g1.left_stick_y, g1.left_stick_x);
 
 
-        if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1) {
-            intake.in();
-        } else {
-            intake.stop();
-        }
+        //if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1) {
+        //    intake.in();
+        //} else {
+        //    intake.stop();
+        //}
 
         if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1) {
-            shooter.setTargetVelocity(2100);
+            shooter.setTargetVelocity(Shooter.target);
+            indexer.index();
         } else {
             shooter.stop();
+            indexer.stop();
         }
         shooter.update();
 
