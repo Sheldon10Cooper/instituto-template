@@ -11,9 +11,9 @@ public class Shooter {
     private final DcMotorEx shooter;
 
     //PFS needs to be tuned
-    public static double P = 0.01;
+    public static double P = 0;
     public static double F = 0.00042;
-    public static double S = 0.00004;
+    public static double S = 0;
     private final VoltageSensor battery;
     public static double target = 0;
     private double targetVel = 0;
