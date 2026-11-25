@@ -2,31 +2,23 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.seattlesolvers.solverslib.command.CommandOpMode;
-import com.seattlesolvers.solverslib.command.CommandScheduler;
-import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
-import org.firstinspires.ftc.teamcode.Robot1;
+import org.firstinspires.ftc.teamcode.kitbot;
 
-@TeleOp
-public class Drive1 extends CommandOpMode {
-    public Robot1 robot1;
+@TeleOp(name = "Drive1 (one stick)")
+public class Drive1 extends OpMode {
+    private kitbot robot;
 
     @Override
-    public void initialize() {
-        CommandScheduler.getInstance().reset();
-
+    public void init() {
         MultipleTelemetry telem = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-        GamepadEx driver = new GamepadEx(gamepad1);
-        GamepadEx operator = new GamepadEx(gamepad2);
-
-        robot1 = new Robot1(hardwareMap, telem, driver,operator,gamepad1,gamepad2);
+        robot = new kitbot(hardwareMap, telem, gamepad1, gamepad2, kitbot.DriveStyle.ONE_STICK);
     }
+
     @Override
-    public void run(){
-        super.run();
-        robot1.run();
+    public void loop() {
+        robot.run();
     }
 }
