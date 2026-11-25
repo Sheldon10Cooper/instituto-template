@@ -65,12 +65,16 @@ public class Robot2 extends Robot {
 
         if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.3) {
             intake.in();
+        } else if (OperatorGamepad.getButton(GamepadKeys.Button.A)) {
+            intake.out();
         } else {
             intake.stop();
         }
 
         if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.3) {
             shooter.setTargetVelocity(1500);
+        } else if (OperatorGamepad.getButton(GamepadKeys.Button.B)) {
+            shooter.setTargetVelocity(-500); // slow reverse to clear jams
         } else {
             shooter.stop();
         }
@@ -78,8 +82,13 @@ public class Robot2 extends Robot {
 
         boolean feed = OperatorGamepad.getButton(GamepadKeys.Button.LEFT_BUMPER) && shooter.atTargetVelocity();
         boolean override = OperatorGamepad.getButton(GamepadKeys.Button.RIGHT_BUMPER);
-        if (feed || override) indexer.index();
-        else indexer.stop();
+        if (feed || override) {
+            indexer.index();
+        } else if (OperatorGamepad.getButton(GamepadKeys.Button.X)) {
+            indexer.reverse();
+        } else {
+            indexer.stop();
+        }
 
         telemetry.addData("Shooter velocity", shooter.getVelocity());
         telemetry.addData("Shooter target", shooter.getTargetVelocity());

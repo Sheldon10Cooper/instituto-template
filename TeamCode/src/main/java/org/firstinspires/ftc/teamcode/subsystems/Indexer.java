@@ -16,4 +16,7 @@ public class Indexer {
     public void stop(){
         indexer.setPower(0);
     }
+    public void reverse(){
+        indexer.setPower(-1);
+    }
 }
