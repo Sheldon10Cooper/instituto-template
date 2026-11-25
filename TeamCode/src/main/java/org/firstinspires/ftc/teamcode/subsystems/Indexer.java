@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Indexer {
     private CRServo indexer;
+    private double deadband(double value){
+        return Math.abs(value) < 0.05 ? 0 : value;
+    }
     public Indexer(HardwareMap hMap){
         indexer = hMap.get(CRServo.class,"indexer");
         indexer.setDirection(CRServo.Direction.REVERSE);

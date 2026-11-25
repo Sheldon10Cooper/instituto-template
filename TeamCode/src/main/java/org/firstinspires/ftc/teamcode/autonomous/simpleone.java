@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 
 import org.firstinspires.ftc.teamcode.Robot1;
 
@@ -17,14 +19,15 @@ public class simpleone extends OpMode {
     Robot1 robot;
 
     static final double SHOOTER_VELOCITY = 1500;
-    static final double SPIN_UP_TIMEOUT = 4.0; // s, give up waiting and feed anyway
-    static final double FEED_TIME = 5.0;       // s
-    static final double DRIVE_TIME = 1.0;      // s
+    static final double SPIN_UP_TIMEOUT = 4.0;
+    static final double FEED_TIME = 5.0;
+    static final double DRIVE_TIME = 1.0;
     static final double DRIVE_POWER = 0.5;
 
     @Override
     public void init(){
-        robot = new Robot1(hardwareMap, telemetry,
+        MultipleTelemetry telem = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+        robot = new Robot1(hardwareMap, telem,
                 new GamepadEx(gamepad1), new GamepadEx(gamepad2), gamepad1, gamepad2);
     }
 
@@ -55,7 +58,7 @@ public class simpleone extends OpMode {
                 }
                 break;
             case DRIVE:
-                robot.arcade.drive(DRIVE_POWER, 0); // straight ahead
+                robot.arcade.drive(DRIVE_POWER, 0);
                 if (timer.seconds() > DRIVE_TIME){
                     robot.arcade.drive(0, 0);
                     state = State.DONE;
@@ -66,7 +69,7 @@ public class simpleone extends OpMode {
                 break;
         }
 
-        robot.shooter.update(); // must run every loop
+        robot.shooter.update();
 
         telemetry.addData("State", state);
         telemetry.addData("Shooter vel", robot.shooter.getVelocity());

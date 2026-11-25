@@ -9,6 +9,9 @@ public class Intake {
     private DcMotorEx intake;
     private CRServo roller1;
     private CRServo roller2;
+    private double deadband(double value){
+        return Math.abs(value) < 0.05 ? 0 : value;
+    }
 
     public Intake(HardwareMap hMap){
         intake = hMap.get(DcMotorEx.class, "intake");

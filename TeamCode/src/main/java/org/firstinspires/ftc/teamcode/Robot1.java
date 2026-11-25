@@ -30,9 +30,11 @@ public class Robot1 extends Robot {
     public Indexer indexer;
     public Intake intake;
     public Shooter shooter;
-    public Follower follower;
     public Gamepad g1;
     public Gamepad g2;
+    private double deadband(double value){
+        return Math.abs(value) < 0.05 ? 0 : value;
+    }
 
     public Robot1(HardwareMap hMap, Telemetry telemetry, GamepadEx driverGamepad, GamepadEx operatorGamepad, Gamepad g1, Gamepad g2) {
         this.hMap = hMap;
@@ -62,14 +64,12 @@ public class Robot1 extends Robot {
 
     @Override
     public void run() {
-        arcade.drive(-g1.left_stick_y, g1.left_stick_x);
+        arcade.drive(deadband(-g1.left_stick_y), deadband(g1.left_stick_x));
         if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1) {
             intake.in();
         } else if (OperatorGamepad.getButton(GamepadKeys.Button.A)) {
             intake.out();
-        } else {
-            intake.stop();
-        }
+        } else intake.stop();
 
         if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1) {
             shooter.setTargetVelocity(2100);
