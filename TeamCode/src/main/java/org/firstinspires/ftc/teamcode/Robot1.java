@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Indexer;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.subsystems.arcade;
+import org.firstinspires.ftc.teamcode.subsystems.tank;
 
 public class Robot1 extends Robot {
     public final HardwareMap hMap;
@@ -46,7 +47,8 @@ public class Robot1 extends Robot {
         configureButtons();
 
     }
-    private void initSubsystems(){
+
+    private void initSubsystems() {
 
         indexer = new Indexer(hMap);
         intake = new Intake(hMap);
@@ -54,15 +56,13 @@ public class Robot1 extends Robot {
         arcade = new arcade(hMap);
 
     }
-    private void configureButtons(){
-        new GamepadButton(OperatorGamepad, GamepadKeys.Button.LEFT_BUMPER)
-                .whenPressed(new InstantCommand(indexer::index))
-                .whenReleased(new InstantCommand(indexer::stop));
-    }
-    @Override
-    public void run(){
-        arcade.drive(-g1.left_stick_y, g1.left_stick_x);
 
+    private void configureButtons() {
+    }
+
+    @Override
+    public void run() {
+        arcade.drive(-g1.left_stick_y, g1.left_stick_x);
 
         if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1) {
             intake.in();
@@ -77,9 +77,14 @@ public class Robot1 extends Robot {
         }
         shooter.update();
 
+        boolean feed = OperatorGamepad.getButton(GamepadKeys.Button.LEFT_BUMPER) && shooter.atTargetVelocity();
+        boolean override = OperatorGamepad.getButton(GamepadKeys.Button.RIGHT_BUMPER);
+        if (feed || override) indexer.index();
+        else indexer.stop();
+
         telemetry.addData("Shooter velocity", shooter.getVelocity());
         telemetry.addData("Shooter target", shooter.getTargetVelocity());
+        telemetry.addData("Shooter ready", shooter.atTargetVelocity());
         telemetry.update();
-
     }
 }

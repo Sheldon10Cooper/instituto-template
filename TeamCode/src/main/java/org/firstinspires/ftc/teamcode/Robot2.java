@@ -45,7 +45,8 @@ public class Robot2 extends Robot {
         configureButtons();
 
     }
-    private void initSubsystems(){
+
+    private void initSubsystems() {
 
         indexer = new Indexer(hMap);
         intake = new Intake(hMap);
@@ -53,15 +54,13 @@ public class Robot2 extends Robot {
         tank = new tank(hMap);
 
     }
-    private void configureButtons(){
-        new GamepadButton(OperatorGamepad, GamepadKeys.Button.LEFT_BUMPER)
-                .whenPressed(new InstantCommand(indexer::index))
-                .whenReleased(new InstantCommand(indexer::stop));
+
+    private void configureButtons() {
+
     }
 
     @Override
-    public void run(){
-        super.run();
+    public void run() {
         tank.drive(-g1.left_stick_y, g1.right_stick_x);
 
         if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.3) {
@@ -70,16 +69,21 @@ public class Robot2 extends Robot {
             intake.stop();
         }
 
-        //TargetVelocity cambia con el getVelocity
         if (OperatorGamepad.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.3) {
-            new InstantCommand(() -> shooter.setTargetVelocity(1500));
+            shooter.setTargetVelocity(1500);
         } else {
             shooter.stop();
         }
+        shooter.update();
+
+        boolean feed = OperatorGamepad.getButton(GamepadKeys.Button.LEFT_BUMPER) && shooter.atTargetVelocity();
+        boolean override = OperatorGamepad.getButton(GamepadKeys.Button.RIGHT_BUMPER);
+        if (feed || override) indexer.index();
+        else indexer.stop();
 
         telemetry.addData("Shooter velocity", shooter.getVelocity());
         telemetry.addData("Shooter target", shooter.getTargetVelocity());
+        telemetry.addData("Shooter ready", shooter.atTargetVelocity());
         telemetry.update();
-
     }
 }
