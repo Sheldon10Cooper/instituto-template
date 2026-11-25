@@ -9,9 +9,6 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 public class Shooter {
     private final DcMotorEx shooter;
     private final VoltageSensor battery;
-    private double deadband(double value){
-        return Math.abs(value) < 0.05 ? 0 : value;
-    }
 
     public static double P = 0;
     public static double F = 0.00042;

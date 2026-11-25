@@ -13,9 +13,6 @@ public class arcade {
     public DcMotor leftMotor;
     public DcMotor rightMotor;
     public Gamepad gamepad;
-    private double deadband(double value){
-        return Math.abs(value) < 0.05 ? 0 : value;
-    }
 
     public arcade(HardwareMap hMap){
         leftMotor = hMap.get(DcMotor.class, "leftMotor");

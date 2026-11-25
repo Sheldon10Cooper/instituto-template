@@ -82,7 +82,8 @@ public class Robot2 extends Robot {
         }
         shooter.update();
 
-        boolean feed = OperatorGamepad.getButton(GamepadKeys.Button.LEFT_BUMPER) && shooter.atTargetVelocity();
+        boolean feed = OperatorGamepad.getButton(GamepadKeys.Button.LEFT_BUMPER)
+                && shooter.getTargetVelocity() > 0 && shooter.atTargetVelocity();
         boolean override = OperatorGamepad.getButton(GamepadKeys.Button.RIGHT_BUMPER);
         if (feed || override) {
             indexer.index();
