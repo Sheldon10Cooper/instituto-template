@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 @Config
 @Autonomous(name = "Auto: Leave Only")
-public class LeaveOnly extends OpMode {
+public class Leave extends OpMode {
     public static double START_DELAY = 0.0;
     public static double DRIVE_TIME = 1.0;
     public static double DRIVE_POWER = 0.5;
