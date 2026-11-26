@@ -5,7 +5,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.kitbot;
+import org.firstinspires.ftc.teamcode.teleop.kitbot;
 
 @TeleOp(name = "Drive2 (two sticks)")
 public class Drive2 extends OpMode {

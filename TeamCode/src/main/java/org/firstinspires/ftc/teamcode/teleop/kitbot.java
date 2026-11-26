@@ -1,53 +1,26 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.autonomous.simpleone;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Indexer;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 
 public class kitbot {
-    /** ONE_STICK = left stick drives and turns. TWO_STICK = left stick drives, right stick turns. */
-    public enum DriveStyle { ONE_STICK, TWO_STICK }
-
-    public final Drivetrain drivetrain;
-    public final Indexer indexer;
-    public final Intake intake;
-    public final Shooter shooter;
-
-    private final Telemetry telemetry;
     private final Gamepad driver;
     private final Gamepad operator;
-    private final DriveStyle driveStyle;
-
-    private boolean intakeOn = false;
-    private boolean shooterOn = false;
-    private boolean farShot = false;
-    private boolean lastIntakeBtn = false;
-    private boolean lastShooterBtn = false;
-    private boolean lastReady = false;
-
-    public kitbot(HardwareMap hMap, Telemetry telemetry, Gamepad driver, Gamepad operator, DriveStyle driveStyle){
-        this.telemetry = telemetry;
-        this.driver = driver;
-        this.operator = operator;
-        this.driveStyle = driveStyle;
-
-        drivetrain = new Drivetrain(hMap);
-        indexer = new Indexer(hMap);
-        intake = new Intake(hMap);
-        shooter = new Shooter(hMap);
-    }
-
-    private double deadband(double value){
+    private double deadband(double value) {
         return Math.abs(value) < 0.05 ? 0 : value;
     }
 
-    /** TeleOp only. Call once per loop. */
-    public void run(){
+    /**
+     * TeleOp only. Call once per loop.
+     */
+    public void run() {
         double drive = deadband(-driver.left_stick_y);
         double turn = deadband(driveStyle == DriveStyle.ONE_STICK ? driver.left_stick_x : driver.right_stick_x);
         drivetrain.arcade(drive, turn);
@@ -102,5 +75,34 @@ public class kitbot {
         telemetry.addData("Shooter target", shooter.getTargetVelocity());
         telemetry.addData("Shooter ready", ready);
         telemetry.update();
+    }
+
+    public enum DriveStyle {ONE_STICK, TWO_STICK}
+
+    public final Drivetrain drivetrain;
+    public final Indexer indexer;
+    public final Intake intake;
+    public final Shooter shooter;
+
+    private final Telemetry telemetry;
+    private final DriveStyle driveStyle;
+
+    private boolean intakeOn = false;
+    private boolean shooterOn = false;
+    private boolean farShot = false;
+    private boolean lastIntakeBtn = false;
+    private boolean lastShooterBtn = false;
+    private boolean lastReady = false;
+
+    public kitbot(HardwareMap hMap, Telemetry telemetry, Gamepad operator, Gamepad driver, DriveStyle driveStyle) {
+        this.telemetry = telemetry;
+        this.driver = driver;
+        this.operator = operator;
+        this.driveStyle = driveStyle;
+
+        drivetrain = new Drivetrain(hMap);
+        indexer = new Indexer(hMap);
+        intake = new Intake(hMap);
+        shooter = new Shooter(hMap);
     }
 }

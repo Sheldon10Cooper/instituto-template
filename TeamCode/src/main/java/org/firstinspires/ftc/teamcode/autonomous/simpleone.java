@@ -7,16 +7,17 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.kitbot;
+import org.firstinspires.ftc.teamcode.teleop.kitbot;
 
 @Config
-@Autonomous(name = "Shoot + Park")
+@Autonomous(name = "ShootR")
 public class simpleone extends OpMode {
 
     enum State { SPIN_UP, FEED, DRIVE_1, TURN, DRIVE_2, TURN2, DRIVE_3, DRIVE_4, FEED2, DONE }
 
     State state = State.SPIN_UP;
     ElapsedTime timer = new ElapsedTime();
+
     kitbot robot;
 
     public static double SHOOTER_VELOCITY = 1310;
@@ -35,7 +36,7 @@ public class simpleone extends OpMode {
     @Override
     public void init(){
         MultipleTelemetry telem = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-        robot = new kitbot(hardwareMap, telem, gamepad1, gamepad2, kitbot.DriveStyle.ONE_STICK);
+        robot = new kitbot(hardwareMap, telem, gamepad1, gamepad1, kitbot.DriveStyle.TWO_STICK);
     }
 
     @Override
@@ -75,7 +76,7 @@ public class simpleone extends OpMode {
                 }
                 break;
             case TURN:
-                robot.drivetrain.arcade(0, -TURN_POWER);
+                robot.drivetrain.arcade(0, TURN_POWER);
                 if (timer.seconds() > TURN_TIME){
                     robot.drivetrain.stop();
                     next(State.DRIVE_2);
@@ -89,13 +90,12 @@ public class simpleone extends OpMode {
                 }
                 break;
             case TURN2:
-                robot.drivetrain.arcade(0, TURN_POWER);
+                robot.drivetrain.arcade(0, -TURN_POWER);
                 if (timer.seconds() > TURN2_TIME){
                     robot.drivetrain.stop();
                     next(State.DRIVE_3);
                 }
                 break;
-
             case DRIVE_3:
                 robot.drivetrain.arcade(DRIVE_POWER, 0);
                 if (timer.seconds() > DRIVE_3_TIME){

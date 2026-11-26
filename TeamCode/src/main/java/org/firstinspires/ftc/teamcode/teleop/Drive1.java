@@ -5,11 +5,11 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.kitbot;
+import org.firstinspires.ftc.teamcode.teleop.kitbot;
 
 @TeleOp(name = "Drive1 (one stick)")
 public class Drive1 extends OpMode {
-    private kitbot robot;
+    private  kitbot robot;
 
     @Override
     public void init() {
