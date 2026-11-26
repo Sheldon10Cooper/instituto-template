@@ -15,10 +15,9 @@ public class Drivetrain {
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
-    /** drive: forward is positive. turn: right is positive. */
     public void arcade(double drive, double turn){
-        double left = drive + turn;
-        double right = drive - turn;
+        double left = drive - turn;
+        double right = drive + turn;
         double max = Math.max(Math.abs(left), Math.abs(right));
         if (max > 1){
             left /= max;

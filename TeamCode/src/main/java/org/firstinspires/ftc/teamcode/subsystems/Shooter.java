@@ -10,12 +10,12 @@ public class Shooter {
     private final DcMotorEx shooter;
     private final VoltageSensor battery;
 
-    public static double P = 0;
+    public static double P = 0.005;
     public static double F = 0.00042;
     public static double S = 0;
     public static double TOLERANCE = 50;
-    public static double NEAR_VELOCITY = 1500;
-    public static double FAR_VELOCITY = 2100;
+    public static double NEAR_VELOCITY = 1310;
+    public static double FAR_VELOCITY = 1310;
 
     private double targetVel = 0;
     private double currentVel = 0;
