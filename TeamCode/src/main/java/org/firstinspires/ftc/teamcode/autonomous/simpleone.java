@@ -5,8 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.teamcode.kitbot;
+@Config
 @Autonomous(name = "Simple Shoot and Park")
 public class simpleone extends OpMode {
 
@@ -16,11 +18,11 @@ public class simpleone extends OpMode {
     ElapsedTime timer = new ElapsedTime();
     kitbot robot;
 
-    static final double SHOOTER_VELOCITY = 1500;
-    static final double SPIN_UP_TIMEOUT = 4.0;
-    static final double FEED_TIME = 5.0;
-    static final double DRIVE_TIME = 1.0;
-    static final double DRIVE_POWER = 0.5;
+    public static double SHOOTER_VELOCITY = 1310;
+    public static double SPIN_UP_TIMEOUT = 4.0;
+    public static double FEED_TIME = 5.0;
+    public static double DRIVE_TIME = 1.0;
+    public static double DRIVE_POWER = 0.5;
 
     @Override
     public void init(){
