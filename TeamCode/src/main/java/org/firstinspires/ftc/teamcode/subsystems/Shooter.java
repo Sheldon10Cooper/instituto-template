@@ -14,8 +14,8 @@ public class Shooter {
     public static double F = 0.00042;
     public static double S = 0;
     public static double TOLERANCE = 50;
-    public static double NEAR_VELOCITY = 1310;
-    public static double FAR_VELOCITY = 1310;
+    public static double NEAR_VELOCITY = 1290;
+    public static double FAR_VELOCITY = 1290;
 
     private double targetVel = 0;
     private double currentVel = 0;

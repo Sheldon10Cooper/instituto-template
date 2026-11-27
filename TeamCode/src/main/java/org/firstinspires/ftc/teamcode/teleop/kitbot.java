@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.autonomous.simpleone;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Indexer;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
@@ -17,13 +16,10 @@ public class kitbot {
         return Math.abs(value) < 0.05 ? 0 : value;
     }
 
-    /**
-     * TeleOp only. Call once per loop.
-     */
     public void run() {
         double drive = deadband(-driver.left_stick_y);
         double turn = deadband(driveStyle == DriveStyle.ONE_STICK ? driver.left_stick_x : driver.right_stick_x);
-        drivetrain.arcade(drive, turn);
+        drivetrain.arcadeCurved(drive, turn);
 
         boolean intakeBtn = operator.right_trigger > 0.3;
         if (intakeBtn && !lastIntakeBtn) intakeOn = !intakeOn;
