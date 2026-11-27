@@ -27,9 +27,9 @@ public class ShootTipPark extends OpMode {
     public static double WHEEL_DIAMETER_IN = 3.78;
 
     public static double LEG_1_INCHES = 12;
-    public static double LEG_2_INCHES = 12;
-    public static double LEG_3_INCHES = 12;
-    public static double PARK_INCHES = 12;
+    public static double LEG_2_INCHES = 26;
+    public static double LEG_3_INCHES = 70;
+    public static double PARK_INCHES = 18;
     public static double TURN_WHEEL_INCHES = 9;
     public static double DRIVE_POWER = 0.5;
     public static double TURN_POWER = 0.4;
