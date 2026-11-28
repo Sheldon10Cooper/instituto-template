@@ -25,9 +25,7 @@ public class kitbot {
         if (intakeBtn && !lastIntakeBtn) intakeOn = !intakeOn;
         lastIntakeBtn = intakeBtn;
 
-        boolean shooterBtn = operator.left_trigger > 0.3;
-        if (shooterBtn && !lastShooterBtn) shooterOn = !shooterOn;
-        lastShooterBtn = shooterBtn;
+        boolean shooterHeld = operator.left_trigger > 0.3;
 
         if (operator.dpad_up) farShot = true;
         if (operator.dpad_down) farShot = false;
@@ -42,7 +40,7 @@ public class kitbot {
 
         if (operator.b) {
             shooter.setTargetVelocity(-500);
-        } else if (shooterOn) {
+        } else if (shooterHeld) {
             shooter.setTargetVelocity(farShot ? Shooter.FAR_VELOCITY : Shooter.NEAR_VELOCITY);
         } else {
             shooter.stop();
@@ -56,7 +54,7 @@ public class kitbot {
         }
         lastReady = ready;
 
-        if ((operator.right_bumper && ready) || operator.left_bumper) {
+        if ((operator.left_bumper && ready) || operator.right_bumper) {
             indexer.index();
         } else if (operator.x) {
             indexer.reverse();
@@ -65,7 +63,7 @@ public class kitbot {
         }
 
         telemetry.addData("Intake on", intakeOn);
-        telemetry.addData("Shooter on", shooterOn);
+        telemetry.addData("Shooter held", shooterHeld);
         telemetry.addData("Preset", farShot ? "FAR" : "NEAR");
         telemetry.addData("Shooter velocity", shooter.getVelocity());
         telemetry.addData("Shooter target", shooter.getTargetVelocity());
@@ -84,10 +82,9 @@ public class kitbot {
     private final DriveStyle driveStyle;
 
     private boolean intakeOn = false;
-    private boolean shooterOn = false;
+
     private boolean farShot = false;
     private boolean lastIntakeBtn = false;
-    private boolean lastShooterBtn = false;
     private boolean lastReady = false;
 
     public kitbot(HardwareMap hMap, Telemetry telemetry, Gamepad operator, Gamepad driver, DriveStyle driveStyle) {
