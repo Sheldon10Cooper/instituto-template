@@ -56,7 +56,7 @@ public class kitbot {
         }
         lastReady = ready;
 
-        if ((operator.left_bumper && ready) || operator.right_bumper) {
+        if ((operator.right_bumper && ready) || operator.left_bumper) {
             indexer.index();
         } else if (operator.x) {
             indexer.reverse();
